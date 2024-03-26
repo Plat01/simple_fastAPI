@@ -19,3 +19,14 @@ sudo -u postgres psql
 CREATE USER test_user WITH ENCRYPTED PASSWORD 'qwerty';
 CREATE DATABASE test_db OWNER test_user;
 ```
+
+if there is error "asyncpg.exceptions.InvalidPasswordError: password authentication failed for user "test_user"
+"
+
+change file "locate pg_hba.conf"
+```
+# "local" is for Unix domain socket connections only
+local   all             all                                     md5 
+```
+
+`sudo systemctl restart postgresql`

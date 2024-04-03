@@ -18,4 +18,4 @@ COPY . .
 #RUN addgroup --system $USER_NAME && adduser --system --group $USER_NAME
 #USER $USER_NAME
 
-# CMD ["gunicorn", "main:app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "main:app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]

@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    container_name: simple_fastapi
+    depends_on:
+      - db
+    command: [ "gunicorn", "main:app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000" ]
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+
+  db:
+    image: postgres:15
+    container_name: pg_db
+    ports:
+      - "5430:5432"
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:

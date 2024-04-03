@@ -30,3 +30,17 @@ local   all             all                                     md5
 ```
 
 `sudo systemctl restart postgresql`
+
+## Run with docker
+
+### Build docker image
+
+```bash
+docker build -t app_back .
+```
+
+### Run all services with docker-compose
+
+```bash
+sudo docker-compose up -d --build
+```

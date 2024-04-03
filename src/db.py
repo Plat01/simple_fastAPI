@@ -7,6 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 from config import DB
 
 DATABASE_URL = DB.db_url
+print(DATABASE_URL)
 
 
 class Base(DeclarativeBase):
@@ -24,6 +25,7 @@ async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 async def create_db_and_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        print("DB created")
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
